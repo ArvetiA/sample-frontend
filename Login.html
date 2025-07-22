@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="employeeApp">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="EmployeController.js"></script>
+    <script src="EmployeService.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body ng-controller="employeeController">
+    <h2>Admin Dashboard-Employee Management</h2>
+    
+
+    <button ng-click="openPopup()">Create Employee</button>
+    <h2>Employee List</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Employee Code</th>
+                <th>Name</th>
+                <th>Date of Birth</th>
+                <th>Job Title</th>
+                <th>Joining Date</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="employee in employees">
+                <td>{{employee.empCode}}</td>
+                <td>{{employee.name}}</td>
+                <td>{{employee.dob}}</td>
+                <td>{{employee.jobTitle}}</td>
+                <td>{{employee.joiningDate}}</td>
+                <td>{{employee.email}}</td>
+
+                <td>
+                    <button ng-click="openPopup(employee)">Edit</button>
+                    <button ng-click="deleteEmployee(employee.empCode)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="modal" ng-class="{'show': showModal}">
+        <div class="modal-content">
+            <h2>{{employeeData.id ? 'Edit' : 'Add'}} Employee</h2>
+            <form name="employeeForm" ng-submit="submitForm(employeeForm)" novalidate>
+                <label>Employee Code:</label>
+                <input type="text" ng-model="employeeData.empCode" ng-disabled="isEditMode" required />
+                
+                <label>Name:</label>
+                <input type="text" ng-model="employeeData.name" required />
+
+                <label>Date of Birth:</label>
+                <input type="date" ng-model="employeeData.dob" placeholder="yyyy-mm-dd"  />
+
+                <label>Job Title:</label>
+                <input type="text" ng-model="employeeData.jobTitle"  />
+
+                <label>Joining Date:</label>
+                <input type="date" ng-model="employeeData.joiningDate"  />
+                <label>Email:</label>
+                <input type="email" ng-model="employeeData.email" required />
+                <label>Role:</label>
+             <select ng-model="employeeData.role" required>
+              <option value="Employee">Employee</option>
+              <option value="Admin">Admin</option>
+           </select>
+
+
+                <br/><br/>
+                <button type="submit">Save</button>
+                <button type="button" ng-click="closePopup()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
