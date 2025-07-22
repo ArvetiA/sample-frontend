@@ -1,5 +1,5 @@
 angular.module('employeeApp').service('EmployeService', function($http) {
-    const apiUrl = 'https://localhost:5001/api/employee';
+    const apiUrl = 'https://sample-backend-uvkh.onrender.com/api/employee';  // ✅ Render backend URL
 
     this.post = function(data) {
         return $http.post(apiUrl, data);
